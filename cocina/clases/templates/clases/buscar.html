@@ -1,0 +1,29 @@
+{% extends 'clases/base.html' %}
+
+{% block title %}Buscar{% endblock %}
+
+{% block content %}
+    <h2>Buscar</h2>
+    <form method="get" action="{% url 'buscar' %}">
+        <input type="text" name="q" placeholder="Buscar...">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <h3>Resultados:</h3>
+    {% for resultado in resultados %}
+        <div>
+            <h4>Alumno: {{ resultado.alumno.nombre }}</h4>
+            <p>Comisión: {{ resultado.alumno.comision }}</p>
+            <p>Profesor: {{ resultado.profesor.nombre }}</p>
+
+            <h5>Recetas:</h5>
+            <ul>
+                {% for receta in resultado.recetas %}
+                    <li>{{ receta.nombre_receta }} - Ingredientes: {{ receta.ingredientes }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% empty %}
+        <p>No se encontraron resultados.</p>
+    {% endfor %}
+{% endblock %}
